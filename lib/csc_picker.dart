@@ -548,6 +548,9 @@ class CSCPicker extends StatefulWidget {
     this.stateDropdownLabel = "State",
     this.cityDropdownLabel = "City",
     this.countryFilter,
+    this.titleCountryWidget,
+    this.titleStateWidget,
+    this.titleCityWidget,
   }) : super(key: key);
 
   final ValueChanged<String>? onCountryChanged;
@@ -580,6 +583,9 @@ class CSCPicker extends StatefulWidget {
   final String cityDropdownLabel;
 
   final List<CscCountry>? countryFilter;
+  final Widget? titleCountryWidget;
+  final Widget? titleStateWidget;
+  final Widget? titleCityWidget;
 
   @override
   CSCPickerState createState() => CSCPickerState();
@@ -800,6 +806,7 @@ class CSCPickerState extends State<CSCPicker> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (widget.titleCountryWidget != null) widget.titleCountryWidget!,
         widget.layout == Layout.vertical
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -808,10 +815,13 @@ class CSCPickerState extends State<CSCPicker> {
                   SizedBox(
                     height: 10.0,
                   ),
+                  if (widget.titleStateWidget != null && widget.showStates)
+                    widget.titleStateWidget!,
                   widget.showStates ? stateDropdown() : Container(),
                   SizedBox(
                     height: 10.0,
                   ),
+                  if (widget.titleCityWidget != null && widget.showCities) widget.titleCityWidget!,
                   widget.showStates && widget.showCities ? cityDropdown() : Container()
                 ],
               )
